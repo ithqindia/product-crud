@@ -14,6 +14,59 @@
         <div class="row">
             <div class="col-12">
                 <h1>Show all!</h1>
+
+
+                <?php 
+    require_once 'connect.php';
+    $sql = "SELECT * FROM product";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    $results = $stmt->fetchAll();
+    //var_dump($results);
+   ?>
+
+<style>
+table, th, tr,td {
+  border: 1px solid black;
+
+}
+</style>
+
+
+   <?php
+echo '<table>
+<tr >
+<th>id</th>
+<th>name</th>
+<th>price</th>
+<th>discount</th>
+<th>category</th>
+<th>image</th>
+<th>description</th>
+<th>delete</th>
+<th>edit</th>
+
+</tr>';
+
+foreach($results as $product){
+    echo "<tr>
+    <td>$product[id]</td>
+    <td>$product[name]</td>
+    <td>$product[price]</td>
+    <td>$product[discount]</td>
+    <td>$product[category]</td>
+    <td>$product[image]</td>
+    <td>$product[description]</td>
+    <td><a href ='delete.php?id=$product[id]'>delete</a></td>
+    <td><a href ='edit.php?id=$product[id]'>Update</a></td>
+
+    </tr>";
+}
+echo '</table>';
+
+?>
+
+
             </div>
         </div>
     </div>
