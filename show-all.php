@@ -14,6 +14,55 @@
         <div class="row">
             <div class="col-12">
                 <h1>Show all!</h1>
+                <style>
+    th,tr,td{
+        border: 1px solid black;
+    }
+</style>
+
+
+<?php 
+    require_once 'connection.php';
+    $sql = "SELECT * FROM pro";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    $results = $stmt->fetchAll();
+    // var_dump($results);
+    
+    ?>
+
+    
+
+<?php
+echo "<table style='border: 1px solid black; cellspacing: 2px;'>
+<tr>
+    
+    <th>Name</th>
+    <th>Price</th>
+    <th>Discount</th>
+    <th>Category</th>
+    <th>image</th>
+    <th>Description</th>
+    <th>Delete</th>
+    <th>Update</th>
+</tr>";
+       foreach($results as $pro){
+           echo "<tr>
+               
+               <td>$pro[name]</td>
+               <td>$pro[price]</td>
+               <td>$pro[discount]</td>
+               <td>$pro[category]</td>
+               <td>$pro[image]</td>
+               <td>$pro[description]</td>
+               <td><a href='delete.php?id=$pro[id]'>delete</td>
+               <td><a href='edit.php?id=$pro[id]'>Update</td>
+           </tr>";
+       }
+    echo "</table>"
+?>
+
+
             </div>
         </div>
     </div>
