@@ -31,19 +31,19 @@
                         <legend class="col-form-label col-sm-2 pt-0">discount</legend>
                         <div class="col-sm-10">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="discount" id="gridRadios1" value="option1" checked>
+                                <input class="form-check-input" type="radio" name="discount" id="gridRadios1" value="10%" checked>
                                 <label class="form-check-label" for="gridRadios1">
                                     10%
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="discount" id="gridRadios2" value="option2">
+                                <input class="form-check-input" type="radio" name="discount" id="gridRadios2" value="20%">
                                 <label class="form-check-label" for="gridRadios2">
                                     20%
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="discount" id="gridRadios3" value="option3">
+                                <input class="form-check-input" type="radio" name="discount" id="gridRadios3" value="30%">
                                 <label class="form-check-label" for="gridRadios3">
                                     30%
                                 </label>
