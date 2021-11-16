@@ -9,11 +9,54 @@
 </head>
 
 <body>
+<?php 
+    require_once 'connect.php';
+    $sql = "SELECT * FROM product";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    $results = $stmt->fetchAll();
+    // var_dump($results);
+?>
     <?php include 'inc-nav.php' ?>
     <div class="container">
         <div class="row">
             <div class="col-12">
                 <h1>Show all!</h1>
+                <!-- Table Start -->
+
+<?php
+echo "<table border=1px solid cellspacing=0 >
+<tr>
+<th> No. </th>
+<th> Name </th>
+<th> Price</th>
+<th> Discount </th>
+<th> Category </th>
+<th> Image </th>
+<th> Description </th>
+<th> Edit/Update </th>
+<th> Delet </th>
+
+</tr>" ;
+
+foreach( $results as $product){
+   echo "
+   <tr>
+   <td> $product[id]</td>
+   <td> $product[name] </td>
+   <td> $product[price] </td> 
+   <td> $product[discount] </td>
+   <td> $product[category] </td>
+   <td> $product[image] </td>
+   <td> $product[description] </td>
+   <td> <a href='edit.php?id=$product[id]'> Edit </a> </td>
+   <td> <a href='delet.php?id=$product[id]'> Delet </a> </td>
+   </tr> ";
+}
+
+echo"</table>"
+?>
+
             </div>
         </div>
     </div>

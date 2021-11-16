@@ -1,49 +1,76 @@
-<!doctype html>
-<html lang="en">
+<?php
+require_once 'connect.php';
+$sql = "SELECT * FROM product WHERE id = ?";
+$stmt = $pdo->prepare($sql);
+$stmt->bindValue(1, $_GET['id']);
+$stmt->execute();
+$result = $stmt->fetch();
+// var_dump($result); 
+?>
 
+<!-- update -->
+<?php
+if($_POST){
+
+    $sql = "UPDATE product SET name=?, price=?, discount=?, category=?, image=?, description=? WHERE id =?";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindValue(1, $_POST['name']);
+    $stmt->bindValue(2, $_POST['price']);
+    $stmt->bindValue(3, $_POST['discount']);
+    $stmt->bindValue(4, $_POST['category']);
+    $stmt->bindValue(5, $_POST['image']);
+    $stmt->bindValue(6, $_POST['description']);
+    $stmt->bindValue(7, $_GET['']);
+    $stmt->execute();
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <?php
-    $title = 'Home page';
+<?php
+    $title = 'update page';
     include 'inc-head.php';
     ?>
 </head>
-
 <body>
-    <?php include 'inc-nav.php' ?>
+    
+
+<?php include 'inc-nav.php' ?>
     <div class="container">
         <div class="row">
             <div class="col-12">
                 <h1>Add product!</h1>
                 <!-- form start -->
-                <form action="add.php" method="post">
+                <form action="edit.php?id=<?php echo $_GET['id']?>" method="post">
                 <!-- name -->
                 <div class="mb-3">
                  <label for="formGroupExampleInput" class="form-label">Name :</label>
-                 <input type="text" name="name" class="form-control" id="formGroupExampleInput" placeholder="Name">
+                 <input type="text" name="name" value="<?php echo $result['name']?>" class="form-control" id="formGroupExampleInput" placeholder="Name">
                 </div>
                 <!-- price -->
                 <div class="mb-3">
                  <label for="formGroupExampleInput2" class="form-label">Price :</label>
-                 <input type="number" name="price" class="form-control" id="formGroupExampleInput2" placeholder="Price">
+                 <input type="number" name="price" value="<?php echo $result['price']?>" class="form-control" id="formGroupExampleInput2" placeholder="Price">
                 </div>
                 <!-- discount -->
                 <fieldset class="row mb-3">
                   <legend class="col-form-label col-sm-2 pt-0">Discount :</legend>
                   <div class="col-sm-10">
                     <div class="form-check">
-                     <input class="form-check-input" type="radio" name="discount" id="1" value="10%" checked>
+                     <input class="form-check-input" type="radio" name="discount" id="1" value="10"> 
                      <label class="form-check-label" for="gridRadios1">
                       10%
                      </label>
                    </div>
                    <div class="form-check">
-                     <input class="form-check-input" type="radio" name="discount" id="2" value="20%" checked>
+                     <input class="form-check-input" type="radio" name="discount" id="2" value="20">
                      <label class="form-check-label" for="gridRadios2">
                       20%
                      </label>
                    </div>
                    <div class="form-check disabled">
-                     <input class="form-check-input" type="radio" name="discount" id="3" value="30%" checked>
+                     <input class="form-check-input" type="radio" name="discount" id="3" value="30">
                      <label class="form-check-label" for="gridRadios3">
                       30%
                    </label>
@@ -53,21 +80,21 @@
                 <!-- category -->
                 <div class="mb-3">
                  <label for="formGroupExampleInput2" class="form-label">Category :</label>
-                 <input type="number"  name="category" class="form-control" id="formGroupExampleInput2" placeholder="Category">
+                 <input type="number"  name="category" value="<?php echo $result['category']?>" class="form-control" id="formGroupExampleInput2" placeholder="Category">
                 </div>
                 <!-- image -->
                 <div class="mb-3">
                  <label for="formGroupExampleInput2" class="form-label">Image:</label>
-                 <input type="number" name="image" class="form-control" id="formGroupExampleInput2" placeholder="Image">
+                 <input type="number" name="image"  value="<?php echo $result['image']?> " class="form-control" id="formGroupExampleInput2" placeholder="Image">
                 </div>
                 <!-- description -->
                 <div class="mb-3">
                  <label for="formGroupExampleInput2" class="form-label">Description:</label><br>
-                 <textarea name="description" id="" cols="65" rows="5" name="description" placeholder="write here.."></textarea>
+                 <textarea name="description" value="<?php echo $result['description']?>" id="" cols="30" rows="10" placeholder="write here.."></textarea> 
                  
                 </div>
                 <!-- submit -->
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-warning">Updte</button>
                 </form>
             </div>
         </div>
@@ -85,29 +112,8 @@
     -->
 </body>
 
+    
+
 </html>
 
-<?php
 
-
-if($_POST){     
-require_once 'connect.php';
-
-    $sql = $pdo->prepare("INSERT INTO product (`name`, `price`, `discount`, `category`, `image`, `description`) 
-    VALUES ('".$_POST['name']."',
-            '".$_POST['price']."',
-            '".$_POST['discount']."',
-            '".$_POST['category']."',
-            '".$_POST['image']."',
-            '".$_POST['description']."')");
-$sql->execute();
-}
-
-
-
-
-// $sql->bindParam($_post[name], $name);
-// $sql->bindParam($_email, $email);
-// $sql->bindParam($_status, $status);
-
-?>
