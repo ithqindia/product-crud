@@ -45,19 +45,19 @@ $stmt->execute();
     <legend class="col-form-label col-sm-2 pt-0">Discount</legend>
     <div class="col-sm-10">
       <div class="form-check">
-        <input class="form-check-input" type="radio" name="discount" id="gridRadios1" value="discount1" checked>
+        <input class="form-check-input" type="radio" name="discount" id="1" value="10" <?php if($result['discount'] == 10) echo "checked" ?> checked>
         <label class="form-check-label" for="gridRadios1">
           10%
         </label>
       </div>
       <div class="form-check">
-        <input class="form-check-input" type="radio" name="discount" id="gridRadios2" value="discount2">
+        <input class="form-check-input" type="radio" name="discount" id="2" value="20" <?php if($result['discount'] == 20) echo "checked" ?>>
         <label class="form-check-label" for="gridRadios2">
           20%
         </label>
       </div>
       <div class="form-check disabled">
-        <input class="form-check-input" type="radio" name="discount" id="gridRadios3" value="discount3" checked>
+        <input class="form-check-input" type="radio" name="discount" id="3" value="30" <?php if($result['discount'] == 30) echo "checked" ?> checked>
         <label class="form-check-label" for="gridRadios3">
           30%
         </label>
