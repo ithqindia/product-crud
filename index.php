@@ -2,9 +2,9 @@
 <html lang="en">
 
 <head>
-    <?php 
-        $title = 'Home page';
-        include 'inc-head.php';
+    <?php
+    $title = 'Home page';
+    include 'inc-head.php';
     ?>
 </head>
 

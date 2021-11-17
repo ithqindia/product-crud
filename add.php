@@ -90,7 +90,7 @@
         $sql->bindParam(4, $_POST['category']);
         $sql->bindParam(5, $_POST['image']);
         $sql->bindParam(6, $_POST['description']);
-        
+
 
         $sql->execute();
     };

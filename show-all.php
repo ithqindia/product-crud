@@ -28,6 +28,7 @@
 <style>
 table, th, tr,td {
   border: 1px solid black;
+  width: 50%;
 
 }
 </style>
