@@ -12,6 +12,9 @@
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="add.php">Insert product</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="category-add.php">Category add</a>
+                </li>
             </ul>
         </div>
     </div>

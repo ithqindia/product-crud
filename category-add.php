@@ -52,20 +52,57 @@
     -->
 
     <script>
+        var queryString = window.location.search;
+        var urlParams = new URLSearchParams(queryString);
+        var id = urlParams.get('id');
+        var isInsert = true;
+        if (id) {
+            axios.get('get-category.php', {
+                params: {
+                    id: id
+                }
+            }).then(function(response) {
+                console.log(response.data);
+                document.getElementsByName('name')[0].value = response.data.name;
+                document.getElementsByName('description')[0].value = response.data.description;
+            }).catch(function(error) {
+                console.log(error);
+                alert(error);
+            });
+            isInsert = false;
+        }
+
         document.getElementById("submitBtn").addEventListener("click", function(event) {
             event.preventDefault();
-            axios.post('add-category.php', {
-                    name: document.getElementsByName('name')[0].value,
-                    description: document.getElementsByName('description')[0].value,
-                })
-                .then(function(response) {
-                    console.log(response);
-                    alert('data inserted - ', response.data);
-                })
-                .catch(function(error) {
-                    console.log(error);
-                    alert('error');
-                });
+            if (isInsert) {
+                axios.post('add-category.php', {
+                        name: document.getElementsByName('name')[0].value,
+                        description: document.getElementsByName('description')[0].value,
+                    })
+                    .then(function(response) {
+                        console.log(response);
+                        alert('data inserted - ' + response.data);
+                    })
+                    .catch(function(error) {
+                        console.log(error);
+                        alert('error');
+                    });
+            } else {
+                axios.post('update-category.php', {
+                        name: document.getElementsByName('name')[0].value,
+                        description: document.getElementsByName('description')[0].value,
+                        id: id
+                    })
+                    .then(function(response) {
+                        console.log(response.data);
+                        alert('data updated - ' + response.data);
+                    })
+                    .catch(function(error) {
+                        console.log(error);
+                        alert('error');
+                    });
+            }
+
         });
     </script>
 </body>
