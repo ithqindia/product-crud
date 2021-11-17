@@ -33,19 +33,19 @@
                   <legend class="col-form-label col-sm-2 pt-0">Discount :</legend>
                   <div class="col-sm-10">
                     <div class="form-check">
-                     <input class="form-check-input" type="radio" name="discount" id="1" value="10%" checked>
+                     <input class="form-check-input" type="radio" name="discount" id="1" value="10" checked>
                      <label class="form-check-label" for="gridRadios1">
-                      10%
+                      10
                      </label>
                    </div>
                    <div class="form-check">
-                     <input class="form-check-input" type="radio" name="discount" id="2" value="20%" checked>
+                     <input class="form-check-input" type="radio" name="discount" id="2" value="20" checked>
                      <label class="form-check-label" for="gridRadios2">
-                      20%
+                      20
                      </label>
                    </div>
                    <div class="form-check disabled">
-                     <input class="form-check-input" type="radio" name="discount" id="3" value="30%" checked>
+                     <input class="form-check-input" type="radio" name="discount" id="3" value="30" checked>
                      <label class="form-check-label" for="gridRadios3">
                       30%
                    </label>
