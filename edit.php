@@ -12,15 +12,54 @@ $result = $stmt->fetch();
 <?php
 if ($_POST) {
 
+    $uploadFileName = $_POST['originalFileName'];
+    if (!empty($_FILES['image']['name'])) {
+        $errors = array();
+        $fileName = $_FILES['image']['name'];
+        $fileSize = $_FILES['image']['size'];
+        $tempFileName = $_FILES['image']['tmp_name'];
+        $ext = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+
+        $allowedExtensions = array("jpeg", "jpg", "png");
+        if (in_array($ext, $allowedExtensions) === false) {
+            $errors[] = "ERROR: Extension not allowed, please choose a JPEG or PNG file.";
+        }
+
+        $uploadFolder = 'images/';
+        // Get file name without extension
+        $uploadFileName = pathinfo($fileName, PATHINFO_FILENAME);
+        // Replace all spaces in file name with -
+        $uploadFileName = str_replace(' ', '-', $uploadFileName);
+        // Prefix upload folder path to file name and convert file name to lowercase
+        $uploadFileName = $uploadFolder . strtolower($uploadFileName);
+        // Add a random number to file name
+        $uploadFileName .= '-' . time() . ".";
+        // Add file extension
+        $uploadFileName .= $ext;
+
+        if ($fileSize > 2097152) {
+            $errors[] = 'ERROR: File size must be less than 2 MB';
+        }
+
+        if (empty($errors) == true) {
+            // Copy the user selected file to server
+            move_uploaded_file($tempFileName, $uploadFileName);
+        } else {
+            // Error in uploading file
+            print_r($errors);
+            return false;
+        }
+    }
+
     $sql = "UPDATE product SET name=?, price=?, discount=?, category=?, image=?, description=? WHERE id =?";
     $stmt = $pdo->prepare($sql);
     $stmt->bindValue(1, $_POST['name']);
     $stmt->bindValue(2, $_POST['price']);
     $stmt->bindValue(3, $_POST['discount']);
     $stmt->bindValue(4, $_POST['category']);
-    $stmt->bindValue(5, $_POST['image']);
+    $stmt->bindValue(5, $uploadFileName);
     $stmt->bindValue(6, $_POST['description']);
-    $stmt->bindValue(7, $_GET['']);
+    $stmt->bindValue(7, $_GET['id']);
     $stmt->execute();
 }
 ?>
@@ -44,7 +83,7 @@ if ($_POST) {
             <div class="col-12">
                 <h1>Add product!</h1>
                 <!-- form start -->
-                <form action="edit.php?id=<?php echo $_GET['id'] ?>" method="post">
+                <form action="edit.php?id=<?php echo $_GET['id'] ?>" method="post" enctype="multipart/form-data">
                     <!-- name -->
                     <div class="mb-3">
                         <label for="formGroupExampleInput" class="form-label">Name :</label>
@@ -60,19 +99,19 @@ if ($_POST) {
                         <legend class="col-form-label col-sm-2 pt-0">Discount :</legend>
                         <div class="col-sm-10">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="discount" id="1" value="10" <?php if($result['discount'] == 10) echo "checked" ?>>
+                                <input class="form-check-input" type="radio" name="discount" id="1" value="10" <?php if ($result['discount'] == 10) echo "checked" ?>>
                                 <label class="form-check-label" for="gridRadios1">
                                     10%
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="discount" id="2" value="20" <?php if($result['discount'] == 20) echo "checked" ?>>
+                                <input class="form-check-input" type="radio" name="discount" id="2" value="20" <?php if ($result['discount'] == 20) echo "checked" ?>>
                                 <label class="form-check-label" for="gridRadios2">
                                     20%
                                 </label>
                             </div>
                             <div class="form-check disabled">
-                                <input class="form-check-input" type="radio" name="discount" id="3" value="30" <?php if($result['discount'] == 30) echo "checked" ?>>
+                                <input class="form-check-input" type="radio" name="discount" id="3" value="30" <?php if ($result['discount'] == 30) echo "checked" ?>>
                                 <label class="form-check-label" for="gridRadios3">
                                     30%
                                 </label>
@@ -87,7 +126,9 @@ if ($_POST) {
                     <!-- image -->
                     <div class="mb-3">
                         <label for="formGroupExampleInput2" class="form-label">Image:</label>
-                        <input type="text" name="image" value="<?php echo $result['image'] ?> " class="form-control" id="formGroupExampleInput2" placeholder="Image">
+                        <input type="file" name="image" class="form-control" id="formGroupExampleInput2" placeholder="Image">
+                        <img src='<?php echo $result['image'] ?>' style='width:400px'>
+                        <input type='hidden' name='originalFileName' value='<?php echo $result['image'] ?>'>
                     </div>
                     <!-- description -->
                     <div class="mb-3">

@@ -48,7 +48,7 @@ foreach( $results as $product){
    <td> $product[discount] </td>
    <td> $product[category] </td>
    <td> $product[image] </td>
-   <td> $product[description] </td>
+   <td> $product[description] <img src='$product[image]' style='width:100px'> </td>
    <td> <a href='edit.php?id=$product[id]'> Edit </a> </td>
    <td> <a href='delet.php?id=$product[id]'> Delet </a> </td>
    </tr> ";
