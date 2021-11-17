@@ -6,6 +6,21 @@
     $title = 'Home page';
     include 'inc-head.php';
     ?>
+
+    
+<style>
+      table
+      {
+        border: 3px solid blue;
+        background-color:yellow;
+        box-shadow: 10px 10px 10px  black;
+      }
+      table, th, td 
+      {
+          border:2px solid blue;
+          padding:10px;
+      }
+    </style>
 </head>
 
 <body>
@@ -27,7 +42,7 @@
 ?>
 <!-- Table Start -->
 <?php
-echo "<table border=5px solid green; cellspacing=0>
+echo "<table>
 <tr>
 <th>Name</th>
 <th>Price</th>
