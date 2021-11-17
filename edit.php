@@ -34,9 +34,9 @@ if($_POST){
     ?>
 </head>
 <body>
-    
-
+<!--  navbar start -->
 <?php include 'inc-nav.php' ?>
+<!--  navbar end -->
     <div class="container">
         <div class="row">
             <div class="col-12">

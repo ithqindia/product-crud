@@ -9,7 +9,9 @@
 </head>
 
 <body>
-    <?php include 'inc-nav.php' ?>
+    <!-- navabr start -->
+    <?php include 'inc-nav.php'?>
+    <!-- nabar end--->
     <div class="container">
         <div class="row">
             <div class="col-12">

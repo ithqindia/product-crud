@@ -9,7 +9,9 @@
 </head>
 
 <body>
+    <!--  navbar start -->
     <?php include 'inc-nav.php' ?>
+    <!-- navbar end -->
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -69,6 +71,7 @@
                 <!-- submit -->
                 <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
+                <!-- form end -->
             </div>
         </div>
     </div>
@@ -87,27 +90,18 @@
 
 </html>
 
+<!--  php insert code start -->
 <?php
-
-
 if($_POST){     
-require_once 'connect.php';
-
-    $sql = $pdo->prepare("INSERT INTO product (`name`, `price`, `discount`, `category`, `image`, `description`) 
-    VALUES ('".$_POST['name']."',
-            '".$_POST['price']."',
-            '".$_POST['discount']."',
-            '".$_POST['category']."',
-            '".$_POST['image']."',
-            '".$_POST['description']."')");
-$sql->execute();
-}
-
-
-
-
-// $sql->bindParam($_post[name], $name);
-// $sql->bindParam($_email, $email);
-// $sql->bindParam($_status, $status);
-
+   require_once 'connect.php';
+   $sql = $pdo->prepare("INSERT INTO product (`name`, `price`, `discount`, `category`, `image`, `description`) 
+                         VALUES ('".$_POST['name']."',
+                                 '".$_POST['price']."',
+                                 '".$_POST['discount']."',
+                                 '".$_POST['category']."',
+                                 '".$_POST['image']."',
+                                 '".$_POST['description']."')");
+    $sql->execute();
+         }
 ?>
+<!--  php insert code end -->

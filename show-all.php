@@ -3,43 +3,44 @@
 
 <head>
     <?php
-    $title = 'Home page';
-    include 'inc-head.php';
+        $title = 'Home page';
+        include 'inc-head.php';
     ?>
 <style>
     table
     {   
-    border:3px solid black;
-    background-color:#e9fac8;
-    margin-top: 80px;
-    box-shadow:8px 8px 5px gray;      
+        border:3px solid black;
+        background-color:#e9fac8;
+        margin-top: 80px;
+        box-shadow:8px 8px 5px gray;      
     }
     th,td
     {
-    border:1px solid black;
-    padding: 10px 15px;
-    text-align:center;
+        border:1px solid black;
+        padding: 10px 15px;
+        text-align:center;
     }
     td:hover
     {
-    background-color:#DAF7A6;
-    font-weight: bold;
+        background-color:#DAF7A6;
+        font-weight: bold;
     }
     th
     {
-    background-color: #DAF7A6;
+        background-color: #DAF7A6;
     }
     th:hover
     {
-    background-color: black;
-    color:white;
-    font-weight:bolder;
+        background-color: black;
+        color:white;
+        font-weight:bolder;
     }
 </style>
 
 </head>
 
 <body>
+<!--  php select code start -->
 <?php 
     require_once 'connect.php';
     $sql = "SELECT * FROM product";
@@ -48,7 +49,11 @@
     $results = $stmt->fetchAll();
     // var_dump($results);
 ?>
-    <?php include 'inc-nav.php' ?>
+<!--  php select code end  -->
+
+<!-- navbar start -->
+<?php include 'inc-nav.php'?>
+<!-- navbar end  -->
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -58,35 +63,34 @@
                  <?php
                    echo "<table>
                     <tr>
-                    <th> No. </th>
-                    <th> Name </th>
-                    <th> Price</th>
-                    <th> Discount </th>
-                    <th> Category </th>
-                    <th> Image </th>
-                    <th> Description </th>
-                    <th> Edit/Update </th>
-                    <th> Delet </th>
+                        <th> No. </th>
+                        <th> Name </th>
+                        <th> Price</th>
+                        <th> Discount </th>
+                        <th> Category </th>
+                        <th> Image </th>
+                        <th> Description </th>
+                        <th> Edit/Update </th>
+                        <th> Delet </th>
                     </tr>" ;
 
                     foreach( $results as $product){
                     echo "
                     <tr>
-                    <td> $product[id]</td>
-                    <td> $product[name] </td>
-                    <td> $product[price] </td> 
-                    <td> $product[discount] </td>
-                    <td> $product[category] </td>
-                    <td> $product[image] </td>
-                    <td> $product[description] </td>
-                    <td> <a href='edit.php?id=$product[id]'> Edit </a> </td>
-                    <td> <a href='delet.php?id=$product[id]'> Delet </a> </td>
+                        <td> $product[id]</td>
+                        <td> $product[name] </td>
+                        <td> $product[price] </td> 
+                        <td> $product[discount] </td>
+                        <td> $product[category] </td>
+                        <td> $product[image] </td>
+                        <td> $product[description] </td>
+                        <td> <a href='edit.php?id=$product[id]'> Edit </a> </td>
+                        <td> <a href='delet.php?id=$product[id]'> Delet </a> </td>
                     </tr> ";
                     }
 
                     echo"</table>"
                     ?>
-
             </div>
         </div>
     </div>
