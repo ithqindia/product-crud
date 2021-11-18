@@ -3,7 +3,7 @@
 
 <head>
     <?php
-    $title = 'category page';
+    $title = 'category-show page';
     include 'inc-head.php';
     ?>
 <style>

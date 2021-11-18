@@ -3,7 +3,7 @@
 
 <head>
     <?php
-    $title = 'Home page';
+    $title = 'product-insert page';
     include 'inc-head.php';
     ?>
 </head>

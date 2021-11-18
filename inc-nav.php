@@ -13,10 +13,16 @@
                     <a class="nav-link" aria-current="page" href="product-add.php">Insert product</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="category-show.php">Category-show</a>
+                    <a class="nav-link" aria-current="page" href="category-show.php">Show-category</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="category-add.php">Insert-category</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="carts-show.php">Show-carts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="carts-add.php">Insert-carts</a>
                 </li>
                 
             </ul>

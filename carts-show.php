@@ -3,14 +3,14 @@
 
 <head>
     <?php
-    $title = 'product-show page';
+    $title = 'carts-show page';
     include 'inc-head.php';
     ?>
 <style>
     table
     {   
     border:3px solid black;
-    background-color:#e9fac8;
+    background-color:#faaccf;
     margin-top: 80px;
     box-shadow:8px 8px 5px gray;      
     }
@@ -22,12 +22,12 @@
     }
     td:hover
     {
-    background-color:#DAF7A6;
+    background-color:#fa7db5;
     font-weight: bold;
     }
     th
     {
-    background-color: #DAF7A6;
+    background-color: #fa7db5;
     }
     th:hover
     {
@@ -42,48 +42,48 @@
 <body>
 <?php 
     require_once 'connect.php';
-    $sql = "SELECT * FROM product";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute();
-    $results = $stmt->fetchAll();
+     $sql = "SELECT * FROM carts";
+     $stmt = $pdo->prepare($sql);
+     $stmt->execute();
+     $results = $stmt->fetchAll();
     // var_dump($results);
 ?>
     <?php include 'inc-nav.php' ?>
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h1>Show products!</h1>
+                <h1>Cart table</h1>
                 <!-- Table Start -->
 
                  <?php
                    echo "<table>
                     <tr>
                     <th> No. </th>
-                    <th> Name </th>
+                    <th> Product_id</th>
                     <th> Price</th>
-                    <th> Discount </th>
-                    <th> Category </th>
-                    <th> Image </th>
-                    <th> Description </th>
+                    <th> Quantity </th>
+                    <th> Store_id</th>
+                    <th> Delivery </th>
                     <th> Edit/Update </th>
                     <th> Delet </th>
                     </tr>" ;
                     $count=1;
-                    foreach( $results as $product){
+                    foreach( $results as $carts){
+                 
                     echo "
                     <tr>
-                    <td>   $count</td>
-                    <td> $product[name] </td>
-                    <td> $product[price] </td> 
-                    <td> $product[discount] </td>
-                    <td> $product[category] </td>
-                    <td> $product[image] </td>
-                    <td> $product[description] </td>
-                    <td> <a href='product-update.php?id=$product[id]'> Edit </a> </td>
-                    <td> <a href='product-delet.php?id=$product[id]'> Delet </a> </td>
+                    <td> $count</td>
+                    <td> $carts[product_id] </td>
+                    <td> $carts[price] </td> 
+                    <td> $carts[quantity] </td>
+                    <td> $carts[store_id] </td>
+                    <td> $carts[delivery] </td>
+                    <td> <a href='carts-add.php?id=$carts[id]'> Edit </a> </td>
+                    <td> <a href='carts-delet.php?id=$carts[id]'> Delet </a> </td>
                     </tr> ";
                     $count++;
                     }
+                    
 
                     echo"</table>"
                     ?>
