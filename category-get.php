@@ -2,9 +2,9 @@
 
 require_once 'connect.php';
 
-$sql = "SELECT * FROM categories WHERE id = ?";
+$sql = "SELECT * FROM category WHERE id = ?";
 $stmt = $pdo->prepare($sql);
-$stmt->bindValue('1', $_GET['id']);
+$stmt->bindValue(1, $_GET['id']);
 $stmt->execute();
 $data = $stmt->fetch();
 

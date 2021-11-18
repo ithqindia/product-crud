@@ -52,7 +52,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h1>Show all!</h1>
+                <h1>Show products!</h1>
                 <!-- Table Start -->
 
                  <?php
@@ -68,20 +68,21 @@
                     <th> Edit/Update </th>
                     <th> Delet </th>
                     </tr>" ;
-
+                    $count=1;
                     foreach( $results as $product){
                     echo "
                     <tr>
-                    <td> $product[id]</td>
+                    <td>   $count</td>
                     <td> $product[name] </td>
                     <td> $product[price] </td> 
                     <td> $product[discount] </td>
                     <td> $product[category] </td>
                     <td> $product[image] </td>
                     <td> $product[description] </td>
-                    <td> <a href='edit.php?id=$product[id]'> Edit </a> </td>
-                    <td> <a href='delet.php?id=$product[id]'> Delet </a> </td>
+                    <td> <a href='product-update.php?id=$product[id]'> Edit </a> </td>
+                    <td> <a href='product-delet.php?id=$product[id]'> Delet </a> </td>
                     </tr> ";
+                    $count++;
                     }
 
                     echo"</table>"

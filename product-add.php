@@ -14,8 +14,15 @@
         <div class="row">
             <div class="col-12">
                 <h1>Add product!</h1>
+                <?php require_once 'connect.php';
+                    $sql = "SELECT * FROM category";
+                    $stmt = $pdo->prepare($sql);
+                    $stmt->execute();
+                    $categories = $stmt->fetchAll();
+                    // var_dump($results);
+                ?>
                 <!-- form start -->
-                <form action="add.php" method="post">
+                <form action="product-add.php" method="post">
                 <!-- name -->
                 <div class="mb-3">
                  <label for="formGroupExampleInput" class="form-label">Name :</label>
@@ -53,12 +60,16 @@
                 <!-- category -->
                 <div class="mb-3">
                  <label for="formGroupExampleInput2" class="form-label">Category :</label>
-                 <input type="number"  name="category" class="form-control" id="formGroupExampleInput2" placeholder="Category">
+                 <select name='category'>
+                  <?php foreach($categories as $category) { ?> 
+                  <option value="<?php echo $category['id'] ?>"> <?php echo $category['name'] ?></option>
+                  <?php } ?>
+                  </select>
                 </div>
                 <!-- image -->
                 <div class="mb-3">
                  <label for="formGroupExampleInput2" class="form-label">Image:</label>
-                 <input type="number" name="image" class="form-control" id="formGroupExampleInput2" placeholder="Image">
+                 <input type="text" name="image" class="form-control" id="formGroupExampleInput2" placeholder="Image">
                 </div>
                 <!-- description -->
                 <div class="mb-3">
@@ -67,7 +78,7 @@
                  
                 </div>
                 <!-- submit -->
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-danger">Submit</button>
                 </form>
             </div>
         </div>
@@ -103,11 +114,9 @@ require_once 'connect.php';
 $sql->execute();
 }
 
-
-
-
-// $sql->bindParam($_post[name], $name);
-// $sql->bindParam($_email, $email);
-// $sql->bindParam($_status, $status);
-
 ?>
+
+
+
+
+

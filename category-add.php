@@ -24,7 +24,7 @@
                     <!-- image -->
                     <div class="mb-3">
                         <label for="formGroupExampleInput2" class="form-label">Image:</label>
-                        <input type="number" name="image" class="form-control" id="formGroupExampleInput2" placeholder="Image">
+                        <input type="text" name="image" class="form-control" id="formGroupExampleInput2" placeholder="Image">
                     </div>
                     <!-- description -->
                     <div class="mb-3">
@@ -32,7 +32,7 @@
                         <textarea name="description" id="" cols="65" rows="5" name="description" placeholder="write here.." class='form-control'></textarea>
                     </div>
                     <!-- submit -->
-                    <button type="submit" id="submitBtn" class="btn btn-primary">Submit</button>
+                    <button type="submit" id="submitBtn" class="btn btn-warning">Submit</button>
                 </form>
             </div>
         </div>
@@ -57,13 +57,14 @@
         var id = urlParams.get('id');
         var isInsert = true;
         if (id) {
-            axios.get('get-category.php', {
+            axios.get('category-get.php', {
                 params: {
                     id: id
                 }
             }).then(function(response) {
                 console.log(response.data);
                 document.getElementsByName('name')[0].value = response.data.name;
+                document.getElementsByName('image')[0].value = response.data.image;
                 document.getElementsByName('description')[0].value = response.data.description;
             }).catch(function(error) {
                 console.log(error);
@@ -75,8 +76,9 @@
         document.getElementById("submitBtn").addEventListener("click", function(event) {
             event.preventDefault();
             if (isInsert) {
-                axios.post('add-category.php', {
+                axios.post('category-insert.php', {
                         name: document.getElementsByName('name')[0].value,
+                        image: document.getElementsByName('image')[0].value,
                         description: document.getElementsByName('description')[0].value,
                     })
                     .then(function(response) {
@@ -88,8 +90,9 @@
                         alert('error');
                     });
             } else {
-                axios.post('update-category.php', {
+                axios.post('category-update.php', {
                         name: document.getElementsByName('name')[0].value,
+                        image: document.getElementsByName('image')[0].value,
                         description: document.getElementsByName('description')[0].value,
                         id: id
                     })

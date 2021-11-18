@@ -20,7 +20,7 @@ if ($_POST) {
     $stmt->bindValue(4, $_POST['category']);
     $stmt->bindValue(5, $_POST['image']);
     $stmt->bindValue(6, $_POST['description']);
-    $stmt->bindValue(7, $_GET['']);
+    $stmt->bindValue(7, $_GET['id']);
     $stmt->execute();
 }
 ?>
@@ -44,7 +44,7 @@ if ($_POST) {
             <div class="col-12">
                 <h1>Add product!</h1>
                 <!-- form start -->
-                <form action="edit.php?id=<?php echo $_GET['id'] ?>" method="post">
+                <form action="product-update.php?id=<?php echo $_GET['id'] ?>" method="post">
                     <!-- name -->
                     <div class="mb-3">
                         <label for="formGroupExampleInput" class="form-label">Name :</label>

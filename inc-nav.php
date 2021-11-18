@@ -7,14 +7,18 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="show-all.php">Show all</a>
+                    <a class="nav-link" aria-current="page" href="product-show.php">Show-product</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="add.php">Insert product</a>
+                    <a class="nav-link" aria-current="page" href="product-add.php">Insert product</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="category-add.php">Category add</a>
+                    <a class="nav-link" aria-current="page" href="category-show.php">Category-show</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="category-add.php">Insert-category</a>
+                </li>
+                
             </ul>
         </div>
     </div>
