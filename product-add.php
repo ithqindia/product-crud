@@ -15,70 +15,70 @@
             <div class="col-12">
                 <h1>Add product!</h1>
                 <?php require_once 'connect.php';
-                    $sql = "SELECT * FROM category";
-                    $stmt = $pdo->prepare($sql);
-                    $stmt->execute();
-                    $categories = $stmt->fetchAll();
-                    // var_dump($results);
+                $sql = "SELECT * FROM categories";
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute();
+                $categories = $stmt->fetchAll();
+                // var_dump($results);
                 ?>
                 <!-- form start -->
-                <form action="product-add.php" method="post">
-                <!-- name -->
-                <div class="mb-3">
-                 <label for="formGroupExampleInput" class="form-label">Name :</label>
-                 <input type="text" name="name" class="form-control" id="formGroupExampleInput" placeholder="Name">
-                </div>
-                <!-- price -->
-                <div class="mb-3">
-                 <label for="formGroupExampleInput2" class="form-label">Price :</label>
-                 <input type="number" name="price" class="form-control" id="formGroupExampleInput2" placeholder="Price">
-                </div>
-                <!-- discount -->
-                <fieldset class="row mb-3">
-                  <legend class="col-form-label col-sm-2 pt-0">Discount :</legend>
-                  <div class="col-sm-10">
-                    <div class="form-check">
-                     <input class="form-check-input" type="radio" name="discount" id="1" value="10" checked>
-                     <label class="form-check-label" for="gridRadios1">
-                      10
-                     </label>
-                   </div>
-                   <div class="form-check">
-                     <input class="form-check-input" type="radio" name="discount" id="2" value="20" checked>
-                     <label class="form-check-label" for="gridRadios2">
-                      20
-                     </label>
-                   </div>
-                   <div class="form-check disabled">
-                     <input class="form-check-input" type="radio" name="discount" id="3" value="30" checked>
-                     <label class="form-check-label" for="gridRadios3">
-                      30%
-                   </label>
-                  </div>
-                 </div>
-                </fieldset>
-                <!-- category -->
-                <div class="mb-3">
-                 <label for="formGroupExampleInput2" class="form-label">Category :</label>
-                 <select name='category'>
-                  <?php foreach($categories as $category) { ?> 
-                  <option value="<?php echo $category['id'] ?>"> <?php echo $category['name'] ?></option>
-                  <?php } ?>
-                  </select>
-                </div>
-                <!-- image -->
-                <div class="mb-3">
-                 <label for="formGroupExampleInput2" class="form-label">Image:</label>
-                 <input type="text" name="image" class="form-control" id="formGroupExampleInput2" placeholder="Image">
-                </div>
-                <!-- description -->
-                <div class="mb-3">
-                 <label for="formGroupExampleInput2" class="form-label">Description:</label><br>
-                 <textarea name="description" id="" cols="65" rows="5" name="description" placeholder="write here.."></textarea>
-                 
-                </div>
-                <!-- submit -->
-                <button type="submit" class="btn btn-danger">Submit</button>
+                <form action="product-add.php" method="post" enctype="multipart/form-data">>
+                    <!-- name -->
+                    <div class="mb-3">
+                        <label for="formGroupExampleInput" class="form-label">Name :</label>
+                        <input type="text" name="name" class="form-control" id="formGroupExampleInput" placeholder="Name">
+                    </div>
+                    <!-- price -->
+                    <div class="mb-3">
+                        <label for="formGroupExampleInput2" class="form-label">Price :</label>
+                        <input type="number" name="price" class="form-control" id="formGroupExampleInput2" placeholder="Price">
+                    </div>
+                    <!-- discount -->
+                    <fieldset class="row mb-3">
+                        <legend class="col-form-label col-sm-2 pt-0">Discount :</legend>
+                        <div class="col-sm-10">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="discount" id="1" value="10" checked>
+                                <label class="form-check-label" for="gridRadios1">
+                                    10
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="discount" id="2" value="20" checked>
+                                <label class="form-check-label" for="gridRadios2">
+                                    20
+                                </label>
+                            </div>
+                            <div class="form-check disabled">
+                                <input class="form-check-input" type="radio" name="discount" id="3" value="30" checked>
+                                <label class="form-check-label" for="gridRadios3">
+                                    30%
+                                </label>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <!-- category -->
+                    <div class="mb-3">
+                        <label for="formGroupExampleInput2" class="form-label">Category :</label>
+                        <select name='category'>
+                            <?php foreach ($categories as $category) { ?>
+                                <option value="<?php echo $category['id'] ?>"> <?php echo $category['name'] ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                    <!-- image -->
+                    <div class="mb-3">
+                        <label for="formGroupExampleInput2" class="form-label">Image:</label>
+                        <input type="file" name="image" class="form-control" id="formGroupExampleInput2" placeholder="Image">
+                    </div>
+                    <!-- description -->
+                    <div class="mb-3">
+                        <label for="formGroupExampleInput2" class="form-label">Description:</label><br>
+                        <textarea name="description" id="" cols="65" rows="5" name="description" placeholder="write here.."></textarea>
+
+                    </div>
+                    <!-- submit -->
+                    <button type="submit" class="btn btn-danger">Submit</button>
                 </form>
             </div>
         </div>
@@ -101,22 +101,56 @@
 <?php
 
 
-if($_POST){     
-require_once 'connect.php';
+if ($_POST) {
+
+    $uploadFileName = '';
+    if (!empty($_FILES['image']['name'])) {
+        $errors = array();
+        $fileName = $_FILES['image']['name'];
+        $fileSize = $_FILES['image']['size'];
+        $tempFileName = $_FILES['image']['tmp_name'];
+        $ext = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+
+        $allowedExtensions = array("jpeg", "jpg", "png");
+        if (in_array($ext, $allowedExtensions) === false) {
+            $errors[] = "ERROR: Extension not allowed, please choose a JPEG or PNG file.";
+        }
+
+        $uploadFolder = 'images/';
+        // Get file name without extension
+        $uploadFileName = pathinfo($fileName, PATHINFO_FILENAME);
+        // Replace all spaces in file name with -
+        $uploadFileName = str_replace(' ', '-', $uploadFileName);
+        // Prefix upload folder path to file name and convert file name to lowercase
+        $uploadFileName = $uploadFolder . strtolower($uploadFileName);
+        // Add a random number to file name
+        $uploadFileName .= '-' . time() . ".";
+        // Add file extension
+        $uploadFileName .= $ext;
+
+        if ($fileSize > 2097152) {
+            $errors[] = 'ERROR: File size must be less than 2 MB';
+        }
+
+        if (empty($errors) == true) {
+            // Copy the user selected file to server
+            move_uploaded_file($tempFileName, $uploadFileName);
+        } else {
+            // Error in uploading file
+            print_r($errors);
+            return false;
+        }
+    }
+    require_once 'connect.php';
 
     $sql = $pdo->prepare("INSERT INTO product (`name`, `price`, `discount`, `category`, `image`, `description`) 
-    VALUES ('".$_POST['name']."',
-            '".$_POST['price']."',
-            '".$_POST['discount']."',
-            '".$_POST['category']."',
-            '".$_POST['image']."',
-            '".$_POST['description']."')");
-$sql->execute();
+    VALUES ('" . $_POST['name'] . "',
+            '" . $_POST['price'] . "',
+            '" . $_POST['discount'] . "',
+            '" . $_POST['category'] . "',
+            '" . $uploadFileName . "',
+            '" . $_POST['description'] . "')");
+    $sql->execute();
 }
 
 ?>
-
-
-
-
-
